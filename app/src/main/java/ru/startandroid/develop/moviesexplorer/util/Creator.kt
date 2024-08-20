@@ -26,7 +26,7 @@ object Creator {
         context: Context,
         adapter: MoviesAdapter
     ): MoviesSearchPresenter {
-        return MoviesSearchPresenter(view = moviesView, context = context, adapter = adapter)
+        return MoviesSearchPresenter(view = moviesView, context = context)
     }
 
     fun providePosterController(activity: Activity): PosterController {

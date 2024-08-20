@@ -12,11 +12,13 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.startandroid.develop.moviesexplorer.util.Creator
 import ru.startandroid.develop.moviesexplorer.ui.poster.PosterActivity
 import ru.startandroid.develop.moviesexplorer.R
+import ru.startandroid.develop.moviesexplorer.domain.models.Movie
 import ru.startandroid.develop.moviesexplorer.presentation.movies.MoviesView
 
 class MoviesActivity : Activity(), MoviesView {
@@ -53,7 +55,7 @@ class MoviesActivity : Activity(), MoviesView {
         moviesList = findViewById(R.id.locations)
         progressBar = findViewById(R.id.progressBar)
 
-        moviesSearchPresenter.onCreate()
+     //   moviesSearchPresenter.onCreate()
 
         moviesList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         moviesList.adapter = adapter
@@ -101,6 +103,16 @@ class MoviesActivity : Activity(), MoviesView {
             handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
         }
         return current
+    }
+
+    override fun updateMoviesList(newMoviesList: List<Movie>) {
+        adapter.movies.clear()
+        adapter.movies.addAll(newMoviesList)
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }
 
