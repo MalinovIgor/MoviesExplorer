@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
-import android.widget.Toast
 import ru.startandroid.develop.moviesexplorer.domain.api.MoviesInteractor
 import ru.startandroid.develop.moviesexplorer.domain.models.Movie
 import ru.startandroid.develop.moviesexplorer.presentation.movies.MoviesView
@@ -33,8 +32,6 @@ class MoviesSearchPresenter(
 
     private fun searchRequest(newSearchText: String) {
         if (newSearchText.isNotEmpty()) {
-            // Заменили работу с элементами UI на
-            // вызовы методов интерфейса MoviesView
             view.showPlaceholderMessage(false)
             view.showMoviesList(false)
             view.showProgressBar(true)
@@ -47,8 +44,6 @@ class MoviesSearchPresenter(
                             movies.clear()
                             movies.addAll(foundMovies)
                             view.updateMoviesList(movies)
-                            // Заменили работу с элементами UI на
-                            // вызовы методов интерфейса MoviesView
                             view.showMoviesList(true)
                         }
                         if (errorMessage != null) {
@@ -64,34 +59,25 @@ class MoviesSearchPresenter(
         }
     }
 
-
     fun onDestroy() {
         handler.removeCallbacksAndMessages(SEARCH_REQUEST_TOKEN)
     }
 
     private fun showMessage(text: String, additionalMessage: String) {
         if (text.isNotEmpty()) {
-            // Заменили работу с элементами UI на
-            // вызовы методов интерфейса
             view.showPlaceholderMessage(true)
             movies.clear()
             view.updateMoviesList(movies)
             view.changePlaceholderText(text)
             if (additionalMessage.isNotEmpty()) {
                 view.showToast(additionalMessage)
-//                Toast.makeText(context, additionalMessage, Toast.LENGTH_LONG)
-//                    .show()
             }
         } else {
-            // Заменили работу с элементами UI на
-            // вызовы методов интерфейса
             view.showPlaceholderMessage(false)
         }
     }
 
     private fun hideMessage() {
-        // Заменили работу с элементами UI на
-        // вызовы методов интерфейса
         view.showPlaceholderMessage(false)
     }
 

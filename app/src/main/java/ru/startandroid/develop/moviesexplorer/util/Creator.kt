@@ -3,13 +3,14 @@ package ru.startandroid.develop.moviesexplorer.util
 import android.app.Activity
 import android.content.Context
 import ru.startandroid.develop.moviesexplorer.MoviesSearchPresenter
-import ru.startandroid.develop.moviesexplorer.PosterController
+import ru.startandroid.develop.moviesexplorer.PosterPresenter
 import ru.startandroid.develop.moviesexplorer.data.MoviesRepositoryImpl
 import ru.startandroid.develop.moviesexplorer.data.network.RetrofitNetworkClient
 import ru.startandroid.develop.moviesexplorer.domain.api.MoviesInteractor
 import ru.startandroid.develop.moviesexplorer.domain.api.MoviesRepository
 import ru.startandroid.develop.moviesexplorer.domain.impl.MoviesInteractorImpl
 import ru.startandroid.develop.moviesexplorer.presentation.movies.MoviesView
+import ru.startandroid.develop.moviesexplorer.presentation.poster.PosterView
 import ru.startandroid.develop.moviesexplorer.ui.movies.MoviesAdapter
 
 object Creator {
@@ -29,7 +30,10 @@ object Creator {
         return MoviesSearchPresenter(view = moviesView, context = context)
     }
 
-    fun providePosterController(activity: Activity): PosterController {
-        return PosterController(activity)
+    fun providePosterPresenter(
+        posterView: PosterView,
+        imageUrl: String
+    ): PosterPresenter {
+        return PosterPresenter(posterView, imageUrl)
     }
 }
