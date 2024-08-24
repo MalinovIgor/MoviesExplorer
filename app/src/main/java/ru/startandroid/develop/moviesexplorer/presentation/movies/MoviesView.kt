@@ -1,16 +1,16 @@
 package ru.startandroid.develop.moviesexplorer.presentation.movies
 
+import moxy.MvpView
+import moxy.viewstate.strategy.AddToEndSingleStrategy
+import moxy.viewstate.strategy.OneExecutionStateStrategy
+import moxy.viewstate.strategy.StateStrategyType
 import ru.startandroid.develop.moviesexplorer.domain.models.Movie
+import ru.startandroid.develop.moviesexplorer.ui.movies.models.MoviesState
 
-interface MoviesView {
+interface MoviesView : MvpView {
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun render(state: MoviesState)
 
-    fun showPlaceholderMessage(isVisible: Boolean)
-
-    fun showMoviesList(isVisible: Boolean)
-
-    fun showProgressBar(isVisible: Boolean)
-    fun changePlaceholderText(newPlaceholderText: String)
-    fun updateMoviesList(newMoviesList: List<Movie>)
-
-    fun showToast(message: String)
+    @StateStrategyType(OneExecutionStateStrategy::class)
+    fun showToast(additionalMessage: String)
 }
