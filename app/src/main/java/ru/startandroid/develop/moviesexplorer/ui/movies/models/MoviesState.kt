@@ -16,6 +16,4 @@ sealed interface MoviesState {
     data class Empty(
         val message: String
     ) : MoviesState
-
-
 }

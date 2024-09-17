@@ -1,17 +1,13 @@
-package ru.startandroid.develop.moviesexplorer.util
+package ru.startandroid.develop.moviesexplorer.creator
 
-import android.app.Activity
 import android.content.Context
-import ru.startandroid.develop.moviesexplorer.MoviesSearchPresenter
 import ru.startandroid.develop.moviesexplorer.PosterPresenter
 import ru.startandroid.develop.moviesexplorer.data.MoviesRepositoryImpl
 import ru.startandroid.develop.moviesexplorer.data.network.RetrofitNetworkClient
 import ru.startandroid.develop.moviesexplorer.domain.api.MoviesInteractor
 import ru.startandroid.develop.moviesexplorer.domain.api.MoviesRepository
 import ru.startandroid.develop.moviesexplorer.domain.impl.MoviesInteractorImpl
-import ru.startandroid.develop.moviesexplorer.presentation.movies.MoviesView
 import ru.startandroid.develop.moviesexplorer.presentation.poster.PosterView
-import ru.startandroid.develop.moviesexplorer.ui.movies.MoviesAdapter
 
 object Creator {
     private fun getMoviesRepository(context: Context): MoviesRepository {
@@ -20,14 +16,6 @@ object Creator {
 
     fun provideMoviesInteractor(context: Context): MoviesInteractor {
         return MoviesInteractorImpl(getMoviesRepository(context))
-    }
-
-    fun provideMoviesSearchPresenter(
-        context: Context,
-    ): MoviesSearchPresenter {
-        return MoviesSearchPresenter(
-            context = context,
-        )
     }
 
     fun providePosterPresenter(

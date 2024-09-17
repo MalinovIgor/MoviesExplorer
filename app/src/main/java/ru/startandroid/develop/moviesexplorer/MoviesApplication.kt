@@ -4,6 +4,6 @@ import android.app.Application
 
 class MoviesApplication: Application() {
 
-    var moviesSearchPresenter : MoviesSearchPresenter? = null
+    var moviesSearchViewModel : MoviesSearchViewModel? = null
 
 }

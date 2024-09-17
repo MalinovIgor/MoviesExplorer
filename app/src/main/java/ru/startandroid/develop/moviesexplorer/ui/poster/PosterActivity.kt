@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import ru.startandroid.develop.moviesexplorer.PosterPresenter
-import ru.startandroid.develop.moviesexplorer.util.Creator
+import ru.startandroid.develop.moviesexplorer.creator.Creator
 import ru.startandroid.develop.moviesexplorer.R
 import ru.startandroid.develop.moviesexplorer.presentation.poster.PosterView
 
