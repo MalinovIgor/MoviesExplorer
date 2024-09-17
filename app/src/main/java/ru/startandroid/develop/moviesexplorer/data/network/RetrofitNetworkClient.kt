@@ -6,6 +6,7 @@ import android.net.NetworkCapabilities
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.startandroid.develop.moviesexplorer.data.NetworkClient
+import ru.startandroid.develop.moviesexplorer.data.dto.MovieDetailsRequest
 import ru.startandroid.develop.moviesexplorer.data.dto.MoviesSearchRequest
 import ru.startandroid.develop.moviesexplorer.data.dto.Response
 
@@ -24,16 +25,27 @@ class RetrofitNetworkClient (private val context: Context) : NetworkClient {
         if (isConnected() == false) {
             return Response().apply { resultCode = -1 }
         }
-        if (dto !is MoviesSearchRequest) {
-            return Response().apply { resultCode = 400 }
+        if (dto is MovieDetailsRequest) {
+            val response = imdbService.getMovieDetails(dto.id).execute()
+            val body = response.body()
+            return if (body != null) {
+                body.apply { resultCode = response.code() }
+            } else {
+                Response().apply { resultCode = response.code() }
+            }
         }
 
-        val response = imdbService.searchMovies(dto.expression).execute()
-        val body = response.body()
-        return if (body != null) {
-            body.apply { resultCode = response.code() }
-        } else {
-            Response().apply { resultCode = response.code() }
+        if (dto is MoviesSearchRequest) {
+            val response = imdbService.searchMovies(dto.expression).execute()
+            val body = response.body()
+            return if (body != null) {
+                body.apply { resultCode = response.code() }
+            } else {
+                Response().apply { resultCode = response.code() }
+            }
+        }
+        else{
+            return Response().apply { resultCode = 400 }
         }
     }
 

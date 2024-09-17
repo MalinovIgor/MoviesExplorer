@@ -12,9 +12,29 @@ class MoviesInteractorImpl(private val repository: MoviesRepository) : MoviesInt
 
     override fun searchMovies(expression: String, consumer: MoviesInteractor.MoviesConsumer) {
         executor.execute {
-            when (val resource = repository.searchMovies(expression)){
-                is Resource.Success -> {consumer.consume(resource.data, null)}
-                is Resource.Error -> {consumer.consume(resource.data, resource.message)}
+            when (val resource = repository.searchMovies(expression)) {
+                is Resource.Success -> {
+                    consumer.consume(resource.data, null)
+                }
+
+                is Resource.Error -> {
+                    consumer.consume(resource.data, resource.message)
+                }
+            }
+        }
+    }
+
+
+    override fun getMovieDetails(id: String, consumer: MoviesInteractor.MovieDetailsConsumer) {
+        executor.execute {
+            when (val resource = repository.getMovieDetails(id)) {
+                is Resource.Success -> {
+                    resource.data?.let { consumer.consume(it, null) }
+                }
+
+                is Resource.Error -> {
+                    resource.data?.let { consumer.consume(it, resource.message) }
+                }
             }
         }
     }
