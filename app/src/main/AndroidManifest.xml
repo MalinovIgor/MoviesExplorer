@@ -15,7 +15,7 @@
         android:theme="@style/Theme.MoviesExplorer"
         tools:targetApi="31">
         <activity
-            android:name=".ui.poster.PosterActivity"
+            android:name=".ui.poster.DetailsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.movies.MoviesActivity"

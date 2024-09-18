@@ -9,4 +9,7 @@
     <string name="writer">Сценарист:</string>
     <string name="cast">В ролях:</string>
     <string name="plot">Сюжет:</string>
+    <string name="app_name">App name!</string>
+    <string name="something_went_wrong">SMTH\'S wrong!</string>
+    <string name="nothing_found">Nothing!</string>
 </resources>

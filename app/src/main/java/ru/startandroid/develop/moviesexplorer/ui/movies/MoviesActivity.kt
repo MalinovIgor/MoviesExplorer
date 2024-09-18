@@ -15,7 +15,7 @@ import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.startandroid.develop.moviesexplorer.ui.poster.PosterActivity
+import ru.startandroid.develop.moviesexplorer.ui.poster.DetailsActivity
 import ru.startandroid.develop.moviesexplorer.R
 import ru.startandroid.develop.moviesexplorer.domain.models.Movie
 import ru.startandroid.develop.moviesexplorer.ui.movies.models.MoviesState
@@ -28,7 +28,7 @@ class MoviesActivity : ComponentActivity() {
 
     private val adapter = MoviesAdapter {
         if (clickDebounce()) {
-            val intent = Intent(this, PosterActivity::class.java)
+            val intent = Intent(this, DetailsActivity::class.java)
             intent.putExtra("poster", it.image)
             startActivity(intent)
         }
@@ -86,7 +86,7 @@ class MoviesActivity : ComponentActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        textWatcher?.let { queryInput.removeTextChangedListener(it) }
+        queryInput.removeTextChangedListener(textWatcher)
     }
 
     private fun showToast(additionalMessage: String) {
@@ -99,6 +99,7 @@ class MoviesActivity : ComponentActivity() {
             is MoviesState.Empty -> showEmpty(state.message)
             is MoviesState.Error -> showError(state.errorMessage)
             is MoviesState.Loading -> showLoading()
+            else -> {}
         }
     }
 

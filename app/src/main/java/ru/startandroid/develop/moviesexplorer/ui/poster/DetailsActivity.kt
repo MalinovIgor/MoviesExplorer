@@ -1,15 +1,10 @@
 package ru.startandroid.develop.moviesexplorer.ui.poster
 
-import android.app.Activity
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
-import ru.startandroid.develop.moviesexplorer.creator.Creator
 import ru.startandroid.develop.moviesexplorer.R
 import ru.startandroid.develop.moviesexplorer.databinding.ActivityDetailsBinding
-import ru.startandroid.develop.moviesexplorer.presentation.poster.PosterView
 
 class DetailsActivity : AppCompatActivity() {
 

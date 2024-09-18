@@ -1,6 +1,7 @@
 package ru.startandroid.develop.moviesexplorer.ui.poster
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ class PosterFragment : Fragment() {
     }
 
     private val posterViewModel: PosterViewModel by viewModel {
+        Log.e("fr","rg")
         parametersOf(requireArguments().getString(POSTER_URL))
     }
 
