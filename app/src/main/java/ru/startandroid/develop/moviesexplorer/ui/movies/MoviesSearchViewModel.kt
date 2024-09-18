@@ -1,4 +1,4 @@
-package ru.startandroid.develop.moviesexplorer
+package ru.startandroid.develop.moviesexplorer.ui.movies
 
 import android.app.Application
 import android.os.Handler
@@ -11,13 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import ru.startandroid.develop.moviesexplorer.R
+import ru.startandroid.develop.moviesexplorer.SingleLiveEvent
 import ru.startandroid.develop.moviesexplorer.domain.api.MoviesInteractor
 import ru.startandroid.develop.moviesexplorer.domain.models.Movie
 import ru.startandroid.develop.moviesexplorer.ui.movies.models.MoviesState
 import ru.startandroid.develop.moviesexplorer.creator.Creator
 
 class MoviesSearchViewModel(application: Application) : AndroidViewModel(application) {
-
 
     private val moviesInteractor = Creator.provideMoviesInteractor(getApplication())
     private val handler = Handler(Looper.getMainLooper())
@@ -70,7 +71,7 @@ class MoviesSearchViewModel(application: Application) : AndroidViewModel(applica
                                     getApplication<Application>().getString(R.string.something_went_wrong),
                                 )
                             )
-                            showToast.postValue(errorMessage)
+                            showToast.postValue(errorMessage!!)
                         }
 
                         movies.isEmpty() -> {

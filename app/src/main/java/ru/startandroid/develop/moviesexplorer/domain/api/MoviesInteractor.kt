@@ -11,6 +11,6 @@ interface MoviesInteractor {
         fun consume(foundMovies: List<Movie>?, errorMessage:String?)
     }
     interface MovieDetailsConsumer  {
-        fun consume(movieDetails: MovieDetails, errorMessage:String?)
+        fun consume(movieDetails: MovieDetails?, errorMessage:String?)
     }
 }

@@ -1,4 +1,4 @@
-package ru.startandroid.develop.moviesexplorer
+package ru.startandroid.develop.moviesexplorer.ui.poster
 
 import android.app.Activity
 import android.content.Context

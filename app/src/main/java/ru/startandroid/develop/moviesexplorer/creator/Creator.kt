@@ -1,7 +1,7 @@
 package ru.startandroid.develop.moviesexplorer.creator
 
 import android.content.Context
-import ru.startandroid.develop.moviesexplorer.PosterPresenter
+import ru.startandroid.develop.moviesexplorer.ui.poster.PosterPresenter
 import ru.startandroid.develop.moviesexplorer.data.MoviesRepositoryImpl
 import ru.startandroid.develop.moviesexplorer.data.network.RetrofitNetworkClient
 import ru.startandroid.develop.moviesexplorer.domain.api.MoviesInteractor

@@ -15,7 +15,6 @@ import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.startandroid.develop.moviesexplorer.MoviesSearchViewModel
 import ru.startandroid.develop.moviesexplorer.ui.poster.PosterActivity
 import ru.startandroid.develop.moviesexplorer.R
 import ru.startandroid.develop.moviesexplorer.domain.models.Movie
