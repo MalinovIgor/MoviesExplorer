@@ -28,12 +28,18 @@ class MoviesInteractorImpl(private val repository: MoviesRepository) : MoviesInt
 
     override fun getMovieDetails(id: String, consumer: MoviesInteractor.MovieDetailsConsumer) {
         executor.execute {
+            Log.d("MoviesInteractor", "Resource state:")
+
             when (val resource = repository.getMovieDetails(id)) {
                 is Resource.Success -> {
+                    Log.d("MoviesInteractor", "Resource state: $resource")
+
                     resource.data?.let { consumer.consume(it, null) }
                 }
 
                 is Resource.Error -> {
+                    Log.d("MoviesInteractor", "Resource state: $resource")
+
                     resource.data?.let { consumer.consume(it, resource.message) }
                 }
             }

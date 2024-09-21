@@ -1,6 +1,7 @@
 package ru.startandroid.develop.moviesexplorer
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,6 +21,7 @@ class MovieDetailsViewModel(
         moviesInteractor.getMovieDetails(movieId, object : MoviesInteractor.MovieDetailsConsumer {
 
             override fun consume(movieDetails: MovieDetails?, errorMessage: String?) {
+                Log.d("MovieDetailsViewModel", "consume called with movieDetails: $movieDetails, error: $errorMessage")
                 if (movieDetails != null) {
                     stateLiveData.postValue(DetailsState.Details(movieDetails))
                 } else {

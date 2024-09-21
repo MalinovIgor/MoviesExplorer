@@ -6,6 +6,7 @@ import android.os.Looper
 import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
@@ -32,6 +33,7 @@ class MoviesActivity : ComponentActivity() {
                 if (clickDebounce()) {
                     val intent = Intent(this@MoviesActivity, DetailsActivity::class.java)
                     intent.putExtra("poster", movie.image)
+                    intent.putExtra("id", movie.id)
                     startActivity(intent)
                 }
             }

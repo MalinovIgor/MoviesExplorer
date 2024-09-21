@@ -3,6 +3,7 @@ package ru.startandroid.develop.moviesexplorer.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.startandroid.develop.moviesexplorer.data.NetworkClient
@@ -26,7 +27,9 @@ class RetrofitNetworkClient (private val context: Context) : NetworkClient {
             return Response().apply { resultCode = -1 }
         }
         if (dto is MovieDetailsRequest) {
+
             val response = imdbService.getMovieDetails(dto.id).execute()
+
             val body = response.body()
             return if (body != null) {
                 body.apply { resultCode = response.code() }

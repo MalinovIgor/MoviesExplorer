@@ -26,7 +26,14 @@ class DetailsFragment: Fragment() {
     }
 
     private val aboutViewModel: MovieDetailsViewModel by viewModel {
+        val movieId = requireArguments().getString(MOVIE_ID)
+        if (movieId.isNullOrEmpty()) {
+        }
+        Log.e("fg","fg")
+
         parametersOf(requireArguments().getString(MOVIE_ID))
+
+
     }
 
     private lateinit var binding: FragmentMovieDetailsBinding
@@ -42,15 +49,13 @@ class DetailsFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("why","${aboutViewModel.observeState().value}")
 
         aboutViewModel.observeState().observe(viewLifecycleOwner) {
+            Log.e("test","test")
             when(it) {
-                is DetailsState.Details ->{ showDetails(it.details)
-                Log.e("why","${it.details.plot}")}
+                is DetailsState.Details ->{ showDetails(it.details)}
                 is DetailsState.Error -> showErrorMessage(it.errorMessage)
                 else -> {
-                    Log.e("why","error")
             }
             }
         }

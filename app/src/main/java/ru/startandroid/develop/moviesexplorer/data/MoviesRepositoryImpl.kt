@@ -1,5 +1,6 @@
 package ru.startandroid.develop.moviesexplorer.data
 
+import android.util.Log
 import ru.startandroid.develop.moviesexplorer.data.dto.MovieDetailsRequest
 import ru.startandroid.develop.moviesexplorer.data.dto.MovieDetailsResponse
 import ru.startandroid.develop.moviesexplorer.data.dto.MoviesSearchRequest
@@ -53,7 +54,10 @@ class MoviesRepositoryImpl(
     }
 
     override fun getMovieDetails(id: String): Resource<MovieDetails> {
+        Log.d("MoviesInteractor", "srga")
+
         val response = networkClient.doRequest(MovieDetailsRequest(id))
+
         return when (response.resultCode) {
             -1 -> {
                 Resource.Error("Проверьте интернет")

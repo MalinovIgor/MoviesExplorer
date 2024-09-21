@@ -1,6 +1,7 @@
 package ru.startandroid.develop.moviesexplorer.ui.poster
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.startandroid.develop.moviesexplorer.R
@@ -19,7 +20,7 @@ class DetailsActivity : AppCompatActivity() {
 
         val poster = intent.getStringExtra("poster") ?: ""
         val movieId = intent.getStringExtra("id") ?: ""
-
+Log.e("movieID", "$movieId")
         binding.viewPager.adapter = DetailsViewPagerAdapter(
             fragmentManager = supportFragmentManager,
             lifecycle = lifecycle,

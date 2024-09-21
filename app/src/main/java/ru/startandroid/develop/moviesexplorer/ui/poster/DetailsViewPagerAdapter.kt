@@ -1,5 +1,6 @@
 package ru.startandroid.develop.moviesexplorer.ui.poster
 
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -19,7 +20,8 @@ class DetailsViewPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         return when(position) {
             0 -> PosterFragment.newInstance(posterUrl)
-            else -> DetailsFragment.newInstance(movieId)
+            else -> {DetailsFragment.newInstance(movieId)
+            }
         }
     }
 }
