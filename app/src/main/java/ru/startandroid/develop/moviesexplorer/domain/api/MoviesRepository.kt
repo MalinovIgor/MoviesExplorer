@@ -8,4 +8,7 @@ interface MoviesRepository {
     fun searchMovies(expression: String): Resource<List<Movie>>
 
     fun getMovieDetails(id:String):Resource<MovieDetails>
+
+    fun addMovieToFavorites(movie: Movie)
+    fun removeMovieFromFavorites(movie: Movie)
 }

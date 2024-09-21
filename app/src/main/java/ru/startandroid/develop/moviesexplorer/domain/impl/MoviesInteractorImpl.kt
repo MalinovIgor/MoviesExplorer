@@ -3,6 +3,7 @@ package ru.startandroid.develop.moviesexplorer.domain.impl
 import android.util.Log
 import ru.startandroid.develop.moviesexplorer.domain.api.MoviesInteractor
 import ru.startandroid.develop.moviesexplorer.domain.api.MoviesRepository
+import ru.startandroid.develop.moviesexplorer.domain.models.Movie
 import ru.startandroid.develop.moviesexplorer.util.Resource
 import java.util.concurrent.Executors
 
@@ -37,5 +38,12 @@ class MoviesInteractorImpl(private val repository: MoviesRepository) : MoviesInt
                 }
             }
         }
+    }
+    override fun addMovieToFavorites(movie: Movie) {
+        repository.addMovieToFavorites(movie)
+    }
+
+    override fun removeMovieFromFavorites(movie: Movie) {
+        repository.removeMovieFromFavorites(movie)
     }
 }

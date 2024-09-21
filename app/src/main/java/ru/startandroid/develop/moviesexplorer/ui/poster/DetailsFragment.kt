@@ -1,6 +1,7 @@
 package ru.startandroid.develop.moviesexplorer.ui.poster
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,12 +42,16 @@ class DetailsFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.e("why","${aboutViewModel.observeState().value}")
 
         aboutViewModel.observeState().observe(viewLifecycleOwner) {
             when(it) {
-                is DetailsState.Details -> showDetails(it.details)
+                is DetailsState.Details ->{ showDetails(it.details)
+                Log.e("why","${it.details.plot}")}
                 is DetailsState.Error -> showErrorMessage(it.errorMessage)
-                else -> {}
+                else -> {
+                    Log.e("why","error")
+            }
             }
         }
     }

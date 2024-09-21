@@ -4,6 +4,8 @@ import ru.startandroid.develop.moviesexplorer.domain.models.Movie
 import ru.startandroid.develop.moviesexplorer.domain.models.MovieDetails
 
 interface MoviesInteractor {
+    fun addMovieToFavorites(movie: Movie)
+    fun removeMovieFromFavorites(movie: Movie)
     fun searchMovies(expression: String, consumer: MoviesConsumer)
     fun getMovieDetails(id:String, consumer: MovieDetailsConsumer)
 

@@ -24,7 +24,6 @@ class PosterFragment : Fragment() {
     }
 
     private val posterViewModel: PosterViewModel by viewModel {
-        Log.e("fr","rg")
         parametersOf(requireArguments().getString(POSTER_URL))
     }
 
