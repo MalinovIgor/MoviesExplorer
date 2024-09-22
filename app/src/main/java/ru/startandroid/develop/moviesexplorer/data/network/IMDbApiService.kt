@@ -1,18 +1,18 @@
-package ru.startandroid.develop.moviesexplorer.data.network
+package startandroid.develop.moviesexplorer.data.network
+
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
-import ru.startandroid.develop.moviesexplorer.data.dto.MovieCastResponse
-import ru.startandroid.develop.moviesexplorer.data.dto.MovieDetailsResponse
-import ru.startandroid.develop.moviesexplorer.data.dto.MovieSearchResponse
+import startandroid.develop.moviesexplorer.data.dto.MovieCastResponse
+import startandroid.develop.moviesexplorer.data.dto.MovieDetailsResponse
+import startandroid.develop.moviesexplorer.data.dto.MoviesSearchResponse
 
 interface IMDbApiService {
-    @GET("/en/API/SearchMovie/k_zcuw1ytf/{expression}")
 
-fun searchMovies(@Path("expression") expression: String): Call<MovieSearchResponse>
+    @GET("/en/API/SearchMovie/YOUR_API_KEY/{expression}")
+    fun searchMovies(@Path("expression") expression: String): Call<MoviesSearchResponse>
 
-
-    @GET("/en/API/Title/k_zcuw1ytf/{movie_id}")
+    @GET("/en/API/Title/YOUR_API_KEY/{movie_id}")
     fun getMovieDetails(@Path("movie_id") movieId: String): Call<MovieDetailsResponse>
 
     @GET("/en/API/FullCast/YOUR_API_KEY/{movie_id}")

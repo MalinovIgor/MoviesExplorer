@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="title_margin">16dp</dimen>
     <dimen name="section_margin">24dp</dimen>
@@ -6,4 +7,4 @@
     <dimen name="subtitle_text_size">24sp</dimen>
     <dimen name="label_text_size">18sp</dimen>
     <dimen name="value_text_size">18sp</dimen>
-</resources> 
+</resources>

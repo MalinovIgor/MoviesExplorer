@@ -1,4 +1,4 @@
-package ru.startandroid.develop.moviesexplorer.data.dto
+package startandroid.develop.moviesexplorer.data.dto
 
 data class MovieDto(val id: String,
                     val resultType: String,

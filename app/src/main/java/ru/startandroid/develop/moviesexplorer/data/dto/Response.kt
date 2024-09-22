@@ -1,5 +1,5 @@
-package ru.startandroid.develop.moviesexplorer.data.dto
+package startandroid.develop.moviesexplorer.data.dto
 
-open class Response () {
+open class Response() {
     var resultCode = 0
 }

@@ -1,4 +1,4 @@
-package ru.startandroid.develop.moviesexplorer.util
+package startandroid.develop.moviesexplorer.util
 
 sealed class Resource<T>(val data: T? = null, val message: String? = null) {
     class Success<T>(data: T): Resource<T>(data)

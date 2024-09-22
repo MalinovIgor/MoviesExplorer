@@ -1,26 +1,25 @@
-package ru.startandroid.develop.moviesexplorer.ui.movies
+package startandroid.develop.moviesexplorer.ui.movies
 
-import android.os.Handler
-import android.os.Bundle
-import android.os.Looper
 import android.content.Intent
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ru.startandroid.develop.moviesexplorer.ui.poster.DetailsActivity
 import ru.startandroid.develop.moviesexplorer.R
-import ru.startandroid.develop.moviesexplorer.domain.models.Movie
-import ru.startandroid.develop.moviesexplorer.ui.movies.models.MoviesState
+import startandroid.develop.moviesexplorer.domain.models.Movie
+import startandroid.develop.moviesexplorer.presentation.movies.MoviesState
+import startandroid.develop.moviesexplorer.presentation.movies.MoviesViewModel
+import startandroid.develop.moviesexplorer.ui.details.DetailsActivity
 
 class MoviesActivity : ComponentActivity() {
 
@@ -28,24 +27,16 @@ class MoviesActivity : ComponentActivity() {
         private const val CLICK_DEBOUNCE_DELAY = 1000L
     }
 
-    private val adapter = MoviesAdapter(
-        object : MoviesAdapter.MovieClickListener {
-            override fun onMovieClick(movie: Movie) {
-                if (clickDebounce()) {
-                    val intent = Intent(this@MoviesActivity, DetailsActivity::class.java)
-                    intent.putExtra("poster", movie.image)
-                    intent.putExtra("id", movie.id)
-                    startActivity(intent)
-                }
-            }
+    private val viewModel by viewModel<MoviesViewModel>()
 
-            override fun onFavoriteToggleClick(movie: Movie) {
-                // 1
-                viewModel.toggleFavorite(movie)
-            }
-
+    private val adapter = MoviesAdapter {
+        if (clickDebounce()) {
+            val intent = Intent(this, DetailsActivity::class.java)
+            intent.putExtra("poster", it.image)
+            intent.putExtra("id", it.id)
+            startActivity(intent)
         }
-    )
+    }
 
     private lateinit var queryInput: EditText
     private lateinit var placeholderMessage: TextView
@@ -53,17 +44,14 @@ class MoviesActivity : ComponentActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var textWatcher: TextWatcher
 
+
     private var isClickAllowed = true
 
     private val handler = Handler(Looper.getMainLooper())
 
-    private lateinit var viewModel: MoviesSearchViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movies)
-
-        val viewModel by viewModel<MoviesSearchViewModel>()
 
         placeholderMessage = findViewById(R.id.placeholderMessage)
         queryInput = findViewById(R.id.queryInput)
@@ -79,7 +67,7 @@ class MoviesActivity : ComponentActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 viewModel.searchDebounce(
-                    changedText = s?.toString() ?: ""
+                        changedText = s?.toString() ?: ""
                 )
             }
 
@@ -99,10 +87,10 @@ class MoviesActivity : ComponentActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        queryInput.removeTextChangedListener(textWatcher)
+        textWatcher?.let { queryInput.removeTextChangedListener(it) }
     }
 
-    private fun showToast(additionalMessage: String) {
+    private fun showToast(additionalMessage: String?) {
         Toast.makeText(this, additionalMessage, Toast.LENGTH_LONG).show()
     }
 
@@ -110,9 +98,8 @@ class MoviesActivity : ComponentActivity() {
         when (state) {
             is MoviesState.Content -> showContent(state.movies)
             is MoviesState.Empty -> showEmpty(state.message)
-            is MoviesState.Error -> showError(state.errorMessage)
+            is MoviesState.Error -> showError(state.message)
             is MoviesState.Loading -> showLoading()
-            else -> {}
         }
     }
 
@@ -152,7 +139,4 @@ class MoviesActivity : ComponentActivity() {
         }
         return current
     }
-
 }
-
-

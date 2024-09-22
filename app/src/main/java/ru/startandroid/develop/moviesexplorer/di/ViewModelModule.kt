@@ -1,46 +1,29 @@
-package ru.startandroid.develop.moviesexplorer.di
+package startandroid.develop.moviesexplorer.di
 
-import android.app.Application
-import android.content.Context
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import ru.startandroid.develop.moviesexplorer.MovieDetailsViewModel
-import ru.startandroid.develop.moviesexplorer.creator.Creator
-import ru.startandroid.develop.moviesexplorer.data.MovieCastConverter
-import ru.startandroid.develop.moviesexplorer.data.MoviesRepositoryImpl
-import ru.startandroid.develop.moviesexplorer.data.network.RetrofitNetworkClient
-import ru.startandroid.develop.moviesexplorer.domain.api.MoviesInteractor
-import ru.startandroid.develop.moviesexplorer.domain.api.MoviesRepository
-import ru.startandroid.develop.moviesexplorer.domain.impl.MoviesInteractorImpl
-import ru.startandroid.develop.moviesexplorer.domain.models.LocalStorage
-import ru.startandroid.develop.moviesexplorer.ui.movies.MoviesSearchViewModel
-import ru.startandroid.develop.moviesexplorer.ui.poster.PosterViewModel
+import startandroid.develop.moviesexplorer.presentation.cast.MoviesCastViewModel
+import startandroid.develop.moviesexplorer.presentation.details.AboutViewModel
+import startandroid.develop.moviesexplorer.presentation.details.PosterViewModel
+import startandroid.develop.moviesexplorer.presentation.movies.MoviesViewModel
 
-val ViewModelModule = module  {
-    single<MoviesInteractor> {
-        MoviesInteractorImpl(get()) // Репозиторий передается через get()
-    }
+val viewModelModule = module {
 
     viewModel {
-        MoviesSearchViewModel(application = get(), get())
+        MoviesViewModel(androidContext(), get())
     }
+
     viewModel {(movieId: String) ->
-       MovieDetailsViewModel(movieId, get())
-    }
-
-    factory { MovieCastConverter() }
-
-
-    single<MoviesRepository> {
-        MoviesRepositoryImpl(
-            RetrofitNetworkClient(get()), // Передаем контекст через get()
-            LocalStorage(get<Context>().getSharedPreferences("local_storage", Context.MODE_PRIVATE)),
-            MovieCastConverter()
-            // Дополнительные зависимости, если есть
-        )
+        AboutViewModel(movieId, get())
     }
 
     viewModel {(posterUrl: String) ->
         PosterViewModel(posterUrl)
     }
+
+    viewModel { (movieId: String) ->
+        MoviesCastViewModel(movieId, get())
+    }
+
 }

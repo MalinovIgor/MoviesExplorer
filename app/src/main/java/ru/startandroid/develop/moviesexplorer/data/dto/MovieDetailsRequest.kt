@@ -1,3 +1,3 @@
-package ru.startandroid.develop.moviesexplorer.data.dto
+package startandroid.develop.moviesexplorer.data.dto
 
-data class MovieDetailsRequest (val id:String)
+data class MovieDetailsRequest(val movieId: String)

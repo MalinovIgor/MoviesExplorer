@@ -1,20 +1,20 @@
-package ru.startandroid.develop.moviesexplorer
+package startandroid.develop.moviesexplorer
 
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.context.startKoin
-import ru.startandroid.develop.moviesexplorer.di.ViewModelModule
-import ru.startandroid.develop.moviesexplorer.ui.movies.MoviesSearchViewModel
+import org.koin.core.context.GlobalContext
+import startandroid.develop.moviesexplorer.di.dataModule
+import startandroid.develop.moviesexplorer.di.interactorModule
+import startandroid.develop.moviesexplorer.di.repositoryModule
+import startandroid.develop.moviesexplorer.di.viewModelModule
 
-class MoviesApplication: Application() {
+class MoviesApplication : Application() {
+
     override fun onCreate() {
         super.onCreate()
-
-        startKoin {
+        GlobalContext.startKoin {
             androidContext(this@MoviesApplication)
-            modules(ViewModelModule) // Подключите ваши модули
+            modules(dataModule, repositoryModule, interactorModule, viewModelModule)
         }
     }
-    var moviesSearchViewModel : MoviesSearchViewModel? = null
-
 }
