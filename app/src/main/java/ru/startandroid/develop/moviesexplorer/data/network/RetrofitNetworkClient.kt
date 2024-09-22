@@ -7,6 +7,7 @@ import android.util.Log
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.startandroid.develop.moviesexplorer.data.NetworkClient
+import ru.startandroid.develop.moviesexplorer.data.dto.MovieCastRequest
 import ru.startandroid.develop.moviesexplorer.data.dto.MovieDetailsRequest
 import ru.startandroid.develop.moviesexplorer.data.dto.MoviesSearchRequest
 import ru.startandroid.develop.moviesexplorer.data.dto.Response
@@ -26,31 +27,26 @@ class RetrofitNetworkClient (private val context: Context) : NetworkClient {
         if (isConnected() == false) {
             return Response().apply { resultCode = -1 }
         }
-        if (dto is MovieDetailsRequest) {
 
-            val response = imdbService.getMovieDetails(dto.id).execute()
-
-            val body = response.body()
-            return if (body != null) {
-                body.apply { resultCode = response.code() }
-            } else {
-                Response().apply { resultCode = response.code() }
-            }
-        }
-
-        if (dto is MoviesSearchRequest) {
-            val response = imdbService.searchMovies(dto.expression).execute()
-            val body = response.body()
-            return if (body != null) {
-                body.apply { resultCode = response.code() }
-            } else {
-                Response().apply { resultCode = response.code() }
-            }
-        }
-        else{
+        // Добавили ещё одну проверку
+        if ((dto !is MoviesSearchRequest) && (dto !is MovieDetailsRequest) && (dto !is MovieCastRequest)) {
             return Response().apply { resultCode = 400 }
         }
+
+        // Добавили в выражение when ещё одну ветку
+        val response = when (dto) {
+            is MoviesSearchRequest -> imdbService.searchMovies(dto.expression).execute()
+            is MovieDetailsRequest -> imdbService.getMovieDetails(dto.id).execute()
+            else -> imdbService.getFullCast((dto as MovieCastRequest).movieId).execute()
+        }
+        val body = response.body()
+        return if (body != null) {
+            (body as Response).apply { resultCode = response.code() }
+        } else {
+            Response().apply { resultCode = response.code() }
+        }
     }
+
 
     private fun isConnected(): Boolean {
         val connectivityManager = context.getSystemService(

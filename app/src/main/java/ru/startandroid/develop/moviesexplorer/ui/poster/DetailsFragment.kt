@@ -11,6 +11,7 @@ import org.koin.core.parameter.parametersOf
 import ru.startandroid.develop.moviesexplorer.MovieDetailsViewModel
 import ru.startandroid.develop.moviesexplorer.databinding.FragmentMovieDetailsBinding
 import ru.startandroid.develop.moviesexplorer.domain.models.MovieDetails
+import ru.startandroid.develop.moviesexplorer.ui.cast.MoviesCastActivity
 import ru.startandroid.develop.moviesexplorer.ui.movies.models.DetailsState
 
 class DetailsFragment: Fragment() {
@@ -58,6 +59,15 @@ class DetailsFragment: Fragment() {
                 else -> {
             }
             }
+        }
+
+        binding.showCastButton.setOnClickListener {
+            startActivity(
+                MoviesCastActivity.newInstance(
+                    context = requireContext(),
+                    movieId = requireArguments().getString(MOVIE_ID).orEmpty()
+                )
+            )
         }
     }
 

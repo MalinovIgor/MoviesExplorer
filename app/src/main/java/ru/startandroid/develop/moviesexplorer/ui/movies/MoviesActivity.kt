@@ -16,6 +16,7 @@ import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.startandroid.develop.moviesexplorer.ui.poster.DetailsActivity
 import ru.startandroid.develop.moviesexplorer.R
 import ru.startandroid.develop.moviesexplorer.domain.models.Movie
@@ -62,7 +63,7 @@ class MoviesActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movies)
 
-        viewModel = ViewModelProvider(this, MoviesSearchViewModel.getViewModelFactory())[MoviesSearchViewModel::class.java]
+        val viewModel by viewModel<MoviesSearchViewModel>()
 
         placeholderMessage = findViewById(R.id.placeholderMessage)
         queryInput = findViewById(R.id.queryInput)

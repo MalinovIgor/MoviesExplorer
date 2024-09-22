@@ -1,6 +1,7 @@
 package ru.startandroid.develop.moviesexplorer.domain.api
 
 import ru.startandroid.develop.moviesexplorer.domain.models.Movie
+import ru.startandroid.develop.moviesexplorer.domain.models.MovieCast
 import ru.startandroid.develop.moviesexplorer.domain.models.MovieDetails
 import ru.startandroid.develop.moviesexplorer.util.Resource
 
@@ -11,4 +12,5 @@ interface MoviesRepository {
 
     fun addMovieToFavorites(movie: Movie)
     fun removeMovieFromFavorites(movie: Movie)
+    fun getMovieCast(movieId: String): Resource<MovieCast>
 }

@@ -20,7 +20,6 @@ class DetailsActivity : AppCompatActivity() {
 
         val poster = intent.getStringExtra("poster") ?: ""
         val movieId = intent.getStringExtra("id") ?: ""
-Log.e("movieID", "$movieId")
         binding.viewPager.adapter = DetailsViewPagerAdapter(
             fragmentManager = supportFragmentManager,
             lifecycle = lifecycle,

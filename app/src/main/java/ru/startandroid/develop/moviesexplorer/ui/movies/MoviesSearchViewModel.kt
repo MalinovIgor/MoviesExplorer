@@ -19,9 +19,9 @@ import ru.startandroid.develop.moviesexplorer.domain.models.Movie
 import ru.startandroid.develop.moviesexplorer.ui.movies.models.MoviesState
 import ru.startandroid.develop.moviesexplorer.creator.Creator
 
-class MoviesSearchViewModel(application: Application) : AndroidViewModel(application) {
+class MoviesSearchViewModel(application: Application,     private val moviesInteractor: MoviesInteractor) : AndroidViewModel(application) {
 
-    private val moviesInteractor = Creator.provideMoviesInteractor(getApplication())
+  //  private val moviesInteractor = Creator.provideMoviesInteractor(getApplication())
     private val handler = Handler(Looper.getMainLooper())
 
     private val stateLiveData = MutableLiveData<MoviesState>()
@@ -145,11 +145,5 @@ class MoviesSearchViewModel(application: Application) : AndroidViewModel(applica
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
         private val SEARCH_REQUEST_TOKEN = Any()
-
-        fun getViewModelFactory(): ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                MoviesSearchViewModel(this[APPLICATION_KEY] as Application)
-            }
-        }
     }
 }

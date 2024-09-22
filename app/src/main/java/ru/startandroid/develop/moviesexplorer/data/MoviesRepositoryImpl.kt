@@ -1,6 +1,8 @@
 package ru.startandroid.develop.moviesexplorer.data
 
 import android.util.Log
+import ru.startandroid.develop.moviesexplorer.data.dto.MovieCastRequest
+import ru.startandroid.develop.moviesexplorer.data.dto.MovieCastResponse
 import ru.startandroid.develop.moviesexplorer.data.dto.MovieDetailsRequest
 import ru.startandroid.develop.moviesexplorer.data.dto.MovieDetailsResponse
 import ru.startandroid.develop.moviesexplorer.data.dto.MoviesSearchRequest
@@ -8,12 +10,14 @@ import ru.startandroid.develop.moviesexplorer.data.dto.MovieSearchResponse
 import ru.startandroid.develop.moviesexplorer.domain.api.MoviesRepository
 import ru.startandroid.develop.moviesexplorer.domain.models.LocalStorage
 import ru.startandroid.develop.moviesexplorer.domain.models.Movie
+import ru.startandroid.develop.moviesexplorer.domain.models.MovieCast
 import ru.startandroid.develop.moviesexplorer.domain.models.MovieDetails
 import ru.startandroid.develop.moviesexplorer.util.Resource
 
 class MoviesRepositoryImpl(
     private val networkClient: NetworkClient,
     private val localStorage: LocalStorage,
+    private val movieCastConverter: MovieCastConverter,
 ) : MoviesRepository {
 
     override fun searchMovies(expression: String): Resource<List<Movie>> {
@@ -53,8 +57,28 @@ class MoviesRepositoryImpl(
         localStorage.removeFromFavorites(movie.id)
     }
 
+    override fun getMovieCast(movieId: String): Resource<MovieCast> {
+        // Поменяли объект dto на нужный Request-объект
+        val response = networkClient.doRequest(MovieCastRequest(movieId))
+        return when (response.resultCode) {
+            -1 -> {
+                Resource.Error("Проверьте подключение к интернету")
+            }
+            200 -> {
+                // Осталось написать конвертацию!
+                with(response as MovieCastResponse) {
+                    Resource.Success(
+                        data = movieCastConverter.convert(response as MovieCastResponse)
+                    )
+                }
+            }
+            else -> {
+                Resource.Error("Ошибка сервера")
+            }
+        }
+    }
+
     override fun getMovieDetails(id: String): Resource<MovieDetails> {
-        Log.d("MoviesInteractor", "srga")
 
         val response = networkClient.doRequest(MovieDetailsRequest(id))
 
